@@ -38,6 +38,9 @@ superpowers가 다루지 않는 영역 보완.
 
 원본은 스킬 형태가 아니라 hook 설치 절차서이며, 실체는 Bash 스크립트 1개(`block-dangerous-git.sh`). 원본 그대로 적용하지 않고 개작판 [`hooks/git-guardrails.js`](../hooks/git-guardrails.js)를 사용.
 
+- 원본은 `skills/misc/` 소속으로 **유지보수 중단(frozen)** 상태. 우회 · fail-open 관련 이슈 4건(#301, #465, #898, #1293)이 모두 NOT_PLANNED로 종료되었고, 메인테이너는 각자 사본에서 수정하도록 안내
+- 업스트림 수정을 기대할 수 없으므로 개작판을 자체 유지
+
 | 원본 동작 | 문제 | 개작판 |
 |---|---|---|
 | `matcher: "Bash"`만 검사 | PowerShell 도구 경유 시 우회 | `Bash`, `PowerShell` 모두 검사 |
@@ -64,6 +67,7 @@ superpowers가 다루지 않는 영역 보완.
 
 | 리스크 | 점검 신호 | 대응 |
 |---|---|---|
+| `misc/` 스킬의 유지보수 중단(frozen) — 결함이 보고되어도 수정되지 않음 | 이슈가 NOT_PLANNED로 종료 | 사용 스킬은 개작판으로 자체 유지 |
 | 개인 저장소 특성상 스킬명 · 구성의 예고 없는 변경 | 저장소 내 deprecated 폴더 이동, 스킬 수 변동 | 사용 스킬만 고정 버전으로 사본 관리 |
 | 저장소별 초기 설정(`setup-matt-pocock-skills`) 필요 | 레포 증가 시 설정 누락 | 필요 레포에만 한정 적용 |
 | `to-issues`, `triage` 계열의 GitHub Issues 전제 | 사내 이슈 시스템 사용 레포에서 미동작 | 개인 프로젝트에 한정 |
