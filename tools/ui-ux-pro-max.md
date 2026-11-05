@@ -5,7 +5,7 @@
 | 유형 | Skill (로컬 검색 데이터 포함) |
 | 상태 | Adopt |
 | 원본 | https://github.com/nextlevelbuilder/ui-ux-pro-max-skill |
-| 라이선스 | 확인 필요 |
+| 라이선스 | MIT |
 | 버전 | 버전 표기 없음 (2026-09-11 사본) |
 | 도입일 | 2026-09-11 |
 | 최종 확인 | 2026-11-05 |

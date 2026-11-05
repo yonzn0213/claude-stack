@@ -34,6 +34,20 @@ superpowers가 다루지 않는 영역 보완.
 | `grill-me` | 계획에 대한 질의 기반 검증 | brainstorming 이전 단계 보강 |
 | `to-issues` | 계획 → GitHub 이슈 분해 | 개인 프로젝트 작업 단위 관리 |
 
+## git-guardrails 원본 검토 (2026-11-05)
+
+원본은 스킬 형태가 아니라 hook 설치 절차서이며, 실체는 Bash 스크립트 1개(`block-dangerous-git.sh`). 원본 그대로 적용하지 않고 개작판 [`hooks/git-guardrails.js`](../hooks/git-guardrails.js)를 사용.
+
+| 원본 동작 | 문제 | 개작판 |
+|---|---|---|
+| `matcher: "Bash"`만 검사 | PowerShell 도구 경유 시 우회 | `Bash`, `PowerShell` 모두 검사 |
+| `git push` 포함 전부 deny | 일반 push까지 불가 — 개인 규칙(push는 확인 후 실행)보다 과도 | force push만 deny, push · rebase · reset --hard 등은 ask |
+| 명령 전체 문자열 grep | 커밋 메시지 안의 "git push" 문구도 차단 | ask 판정은 따옴표 내부 제외 |
+| `git -C <경로> push` 미탐지 | 전역 옵션 사이에 끼면 우회 | 전역 옵션 허용 패턴 |
+| `jq` 의존 | hook 실행 환경 PATH에 없을 수 있음 | Node 단독 실행 |
+
+판정 테스트 26건 통과 (deny 7 · ask 10 · 통과 9).
+
 ## 중복 관계
 
 - `tdd` ↔ superpowers `test-driven-development`, `diagnose` ↔ superpowers `systematic-debugging` → 설치 제외

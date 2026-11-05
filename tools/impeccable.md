@@ -5,7 +5,7 @@
 | 유형 | Skill |
 | 상태 | Adopt |
 | 원본 | https://github.com/pbakaus/impeccable |
-| 라이선스 | 확인 필요 |
+| 라이선스 | Apache-2.0 |
 | 버전 | 4.3.1 |
 | 도입일 | 2026-09-11 |
 | 최종 확인 | 2026-11-05 |

@@ -16,7 +16,7 @@ Claude Code 기반 개발 환경에서 운용 중인 플러그인 · 스킬 · C
 | [ui-ux-pro-max](tools/ui-ux-pro-max.md) | Skill | Adopt | — | 프로젝트 초기 디자인 시스템 선정 |
 | [sf-where-used](tools/sf-where-used.md) | Skill (자체 제작) | Adopt | — | Salesforce 메타데이터 역참조 분석 |
 | [mattpocock/skills](tools/mattpocock-skills.md) | Skill set | Assess | — | 선택형 엔지니어링 스킬 모음 |
-| [Herdr](tools/herdr.md) | CLI | Assess | — | 다중 에이전트 세션 관리 |
+| [Herdr](tools/herdr.md) | CLI | Assess | 0.9.5 (stable) | 다중 에이전트 세션 관리 |
 
 ## 상태 기준
 
@@ -39,6 +39,7 @@ Claude Code 기반 개발 환경에서 운용 중인 플러그인 · 스킬 · C
 ```
 tools/             도구별 운영 문서
 skills/            자체 제작 스킬 원본
+hooks/             Claude Code hook (개작 포함)
 templates/tool.md  운영 문서 템플릿
 CHANGELOG.md       상태 변경 이력
 ```
