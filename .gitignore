@@ -1,0 +1,2 @@
+# 레포별 push 확인 생략 목록 — 로컬 경로가 담겨 공개하지 않음
+hooks/git-guardrails.trusted.json

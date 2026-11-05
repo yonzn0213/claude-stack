@@ -4,6 +4,7 @@
 
 | 날짜 | 도구 | 변경 | 사유 |
 |---|---|---|---|
+| 2026-11-05 | mattpocock/skills | git-guardrails 레포별 push 확인 생략 목록 | 단독 관리 레포에서 push 확인이 작업 흐름만 중단 |
 | 2026-11-05 | Herdr | Trial (0.9.5 설치) | 설치 스크립트 검토 완료, 평가 기준 대비 운용 시작 |
 | 2026-11-05 | mattpocock/skills | git-guardrails 개작판 Trial (hook 등록) | 원본의 PowerShell 우회 · 일반 push 전면 차단 문제 보완 |
 | 2026-11-05 | Herdr | 설치 스크립트 검토 완료 | SHA-256 검증 · 사용자 PATH만 변경 · 관리자 권한 불요 확인 |

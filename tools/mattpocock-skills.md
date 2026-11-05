@@ -56,7 +56,15 @@ superpowers가 다루지 않는 영역 보완.
 |---|---|
 | deny (차단) | force push — `--force`, `-f`, `--force-with-lease`, `--force-if-includes`, `+refspec`, `--mirror` |
 | ask (확인 요청) | `push`, `rebase`, `reset --hard`, `clean -f`, `branch -D`, `checkout .` · `restore .` |
-| 통과 | 그 외 |
+| 통과 | 그 외, 신뢰 목록 레포의 일반 `push` |
+
+레포별 push 확인 생략 (2026-11-05 추가)
+
+- 배경: SaaS 메타데이터 이력 관리 등 단독 관리 레포에서 push 확인이 실익 없이 작업 흐름만 중단
+- 방식: 레포별 첫 push에서 확인 요청 → 사용자 요청 시 해당 레포를 신뢰 목록(`hooks/git-guardrails.trusted.json`, 비공개)에 등록 → 이후 일반 push만 확인 생략
+- 판정 대상 레포: `git -C <경로>` 지정 시 해당 경로, 미지정 시 hook 입력의 `cwd`. worktree는 메인 레포로 환원
+- 유지: force push 차단, rebase · reset --hard 등 나머지 확인 요청
+- 관리: `node git-guardrails.js trust <경로>` / `untrust <경로>` / `list`
 
 원본 결함과 대응
 
@@ -82,7 +90,7 @@ superpowers가 다루지 않는 영역 보완.
 
 | 항목 | 통과 조건 |
 |---|---|
-| 판정 정확도 | 판정 테스트 전건 통과 (현재 26/26) |
+| 판정 정확도 | 판정 테스트 전건 통과 (기존 26건 + 신뢰 목록 15건) |
 | 실환경 동작 | `git push` 시 확인 요청, force push 시 차단 메시지 |
 | 오탐 | 1주 운용 중 정상 명령 오차단 0건 |
 
@@ -118,3 +126,4 @@ superpowers가 다루지 않는 영역 보완.
 |---|---|---|---|
 | 2026-11-05 | 전체 | Assess | superpowers 미보유 영역 보완 후보 |
 | 2026-11-05 | git-guardrails | Trial | 원본 결함 확인, 개작판 작성 · 판정 테스트 26건 통과 · hook 등록 |
+| 2026-11-05 | git-guardrails | Trial (유지) | 단독 관리 레포의 push 확인 부담 → 레포별 신뢰 목록 도입 |
