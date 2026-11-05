@@ -3,11 +3,11 @@
 | 항목 | 내용 |
 |---|---|
 | 유형 | CLI (터미널 멀티플렉서) |
-| 상태 | Assess |
+| 상태 | Trial |
 | 원본 | https://github.com/herdrdev/herdr |
 | 라이선스 | Apache-2.0 |
-| 버전 | 미설치 (stable 0.9.5) |
-| 도입일 | — |
+| 버전 | 0.9.5 (stable, x86_64-pc-windows-msvc) |
+| 도입일 | 2026-11-05 |
 | 최종 확인 | 2026-11-05 |
 
 ## 개요
@@ -80,3 +80,4 @@ curl -fsSL https://herdr.dev/install.sh | sh   # 또는 brew install herdr
 | 날짜 | 상태 | 사유 |
 |---|---|---|
 | 2026-11-05 | Assess | 다중 세션 운용 시 입력 대기 세션 식별 비용. 설치 스크립트 검토 완료 |
+| 2026-11-05 | Trial | 검토한 `install.ps1` 사본으로 설치, 평가 기준 대비 1일 운용 시작 |
