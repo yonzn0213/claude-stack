@@ -3,11 +3,10 @@
 | 항목 | 내용 |
 |---|---|
 | 유형 | Skill set |
-| 상태 | Assess |
+| 상태 | Trial — 개별 스킬 상태는 「스킬별 기록」 참고 |
 | 원본 | https://github.com/mattpocock/skills |
 | 라이선스 | MIT |
-| 버전 | 미설치 |
-| 도입일 | — |
+| 도입일 | 2026-11-05 (git-guardrails 개작판) |
 | 최종 확인 | 2026-11-05 |
 
 ## 개요
@@ -26,31 +25,11 @@ superpowers가 다루지 않는 영역 보완.
 - 위험 git 명령 차단을 규칙(CLAUDE.md)이 아닌 hook으로 강제
 - 설계 착수 전 계획의 결함 검증
 
-## 검토 대상
-
-| 스킬 | 목적 | 선정 사유 |
-|---|---|---|
-| `git-guardrails-claude-code` | `push`, `reset --hard`, `clean` 등 hook 차단 | 규칙 위반 시 사후 발견이 아닌 사전 차단 |
-| `grill-me` | 계획에 대한 질의 기반 검증 | brainstorming 이전 단계 보강 |
-| `to-issues` | 계획 → GitHub 이슈 분해 | 개인 프로젝트 작업 단위 관리 |
-
-## git-guardrails
-
-원본 결함으로 개작판을 사용. 상세는 [git-guardrails (개작판)](git-guardrails.md).
-
 ## 중복 관계
 
 - `tdd` ↔ superpowers `test-driven-development`, `diagnose` ↔ superpowers `systematic-debugging` → 설치 제외
 
-## 평가 기준
-
-| 항목 | 통과 조건 |
-|---|---|
-| 스킬 충돌 | superpowers 스킬과 동시 발동 · 오발동 없음 |
-| git-guardrails | 차단 대상 명령 실행 시 hook 차단 확인, 일반 git 명령 지연 없음 |
-| grill-me | 계획 단계 질문이 이후 설계 변경을 1건 이상 사전에 발견 |
-
-## 운영 리스크
+## 공통 운영 리스크
 
 | 리스크 | 점검 신호 | 대응 |
 |---|---|---|
@@ -59,15 +38,83 @@ superpowers가 다루지 않는 영역 보완.
 | 저장소별 초기 설정(`setup-matt-pocock-skills`) 필요 | 레포 증가 시 설정 누락 | 필요 레포에만 한정 적용 |
 | `to-issues`, `triage` 계열의 GitHub Issues 전제 | 사내 이슈 시스템 사용 레포에서 미동작 | 개인 프로젝트에 한정 |
 
-## 설치 · 제거
+## 스킬별 기록
 
-```bash
-npx skills@latest add mattpocock/skills   # 설치 시 스킬 선택
-# 제거: 설치 경로 확인 후 기재
+| 스킬 | 상태 | 사용 형태 |
+|---|---|---|
+| `git-guardrails-claude-code` | Trial | 개작판 [`hooks/git-guardrails.js`](../hooks/git-guardrails.js) |
+| `grill-me` | Assess | 미설치 |
+| `to-issues` | Assess | 미설치 |
+
+### git-guardrails-claude-code — Trial (개작판)
+
+원본은 `skills/misc/` 소속 Bash 스크립트 1개(`block-dangerous-git.sh`)와 hook 설치 절차서. 유지보수 중단(frozen) 상태라 원본 대신 개작판 사용.
+
+판정 기준 (CLAUDE.md 「도구 실행 권한」 구분 반영)
+
+| 판정 | 대상 |
+|---|---|
+| deny (차단) | force push — `--force`, `-f`, `--force-with-lease`, `--force-if-includes`, `+refspec`, `--mirror` |
+| ask (확인 요청) | `push`, `rebase`, `reset --hard`, `clean -f`, `branch -D`, `checkout .` · `restore .` |
+| 통과 | 그 외 |
+
+원본 결함과 대응
+
+| # | 원본 결함 | 업스트림 | 개작판 대응 |
+|---|---|---|---|
+| 1 | `matcher: "Bash"`만 검사 — PowerShell 도구 경유 시 우회 | 미보고 | `Bash`, `PowerShell` 모두 검사 |
+| 2 | 명령 전체 문자열 grep — 커밋 메시지 내 "git push" 문구도 차단 | 미보고 | ask 판정 시 따옴표 내부 제외 (deny는 원문 기준 유지) |
+| 3 | `git -C <dir> push` 등 전역 옵션 사이 우회 | [#301](https://github.com/mattpocock/skills/issues/301) NOT_PLANNED | 전역 옵션 허용 패턴 |
+| 4 | `jq` 미설치 시 검사 없이 통과(fail-open) | [#898](https://github.com/mattpocock/skills/issues/898), [#1293](https://github.com/mattpocock/skills/issues/1293) NOT_PLANNED | Node 단독 실행, `jq` 의존 제거 |
+| 5 | 일반 `git push`까지 전면 차단 | 설계 차이 (결함 아님) | force push만 deny, 나머지는 ask |
+
+- 1 · 2번은 원본 frozen 상태로 업스트림 미보고
+
+알려진 한계
+
+| 한계 | 영향 | 비고 |
+|---|---|---|
+| hook 실행 실패(Node 미설치 등) 시 통과 | Claude Code는 hook 오류를 비차단으로 처리 | Node는 다른 hook(brain)에도 필수라 동일 조건 |
+| 입력 JSON 파싱 실패 시 통과 | 정상 환경에서는 발생하지 않음 | 모든 셸 명령 차단보다 기존 권한 체계에 위임 |
+| 문자열 패턴 기반 | 별칭(`git config alias`), 스크립트 파일 내부 명령 탐지 불가 | 의도적 우회 방지가 아닌 실수 방지용 |
+
+평가 기준
+
+| 항목 | 통과 조건 |
+|---|---|
+| 판정 정확도 | 판정 테스트 전건 통과 (현재 26/26) |
+| 실환경 동작 | `git push` 시 확인 요청, force push 시 차단 메시지 |
+| 오탐 | 1주 운용 중 정상 명령 오차단 0건 |
+
+설치 · 제거
+
+```json
+// ~/.claude/settings.json → hooks
+"PreToolUse": [{ "matcher": "Bash|PowerShell",
+  "hooks": [{ "type": "command", "command": "node \"C:/Users/pc/.claude/hooks/git-guardrails.js\"", "timeout": 5 }] }]
 ```
+
+제거: 위 항목 삭제 후 `~/.claude/hooks/git-guardrails.js` 삭제.
+
+### grill-me — Assess
+
+| 항목 | 내용 |
+|---|---|
+| 목적 | 계획에 대한 질의 기반 검증 |
+| 선정 사유 | superpowers brainstorming 이전 단계 보강 |
+| 평가 기준 | 계획 단계 질문이 이후 설계 변경을 1건 이상 사전에 발견, superpowers 스킬과 오발동 없음 |
+
+### to-issues — Assess
+
+| 항목 | 내용 |
+|---|---|
+| 목적 | 계획 → GitHub 이슈 분해 |
+| 선정 사유 | 개인 프로젝트 작업 단위 관리 |
+| 제약 | GitHub Issues 사용 레포에 한정 |
 
 ## 결정 이력
 
-| 날짜 | 상태 | 사유 |
-|---|---|---|
-| 2026-11-05 | Assess | superpowers 미보유 영역 보완 후보 |
+| 날짜 | 대상 | 상태 | 사유 |
+|---|---|---|---|
+| 2026-11-05 | 전체 | Assess | superpowers 미보유 영역 보완 후보 |
+| 2026-11-05 | git-guardrails | Trial | 원본 결함 확인, 개작판 작성 · 판정 테스트 26건 통과 · hook 등록 |
