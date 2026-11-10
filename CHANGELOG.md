@@ -4,6 +4,7 @@
 
 | 날짜 | 도구 | 변경 | 사유 |
 |---|---|---|---|
+| 2026-11-10 | apps-in-toss-community (agent-plugin · console-cli · devtools) | Hold (미설치) | 비공식 커뮤니티 프로젝트, README에 유지보수 종료 명시, console-cli는 콘솔 자격증명 저장 방식. 공식 ait CLI · @apps-in-toss/devtools로 대체 |
 | 2026-11-10 | writing-korean-product-ux | Trial (자체 제작) | 기본 모델의 한국어 UI 문구가 국내 가이드와 어긋남(다이얼로그 취소, 뜻 없는 결과), 구독·동의 화면의 국내 법 기준 부재 |
 | 2026-11-05 | mattpocock/skills | git-guardrails 레포별 push 확인 생략 목록 | 단독 관리 레포에서 push 확인이 작업 흐름만 중단 |
 | 2026-11-05 | Herdr | Trial (0.9.5 설치) | 설치 스크립트 검토 완료, 평가 기준 대비 운용 시작 |

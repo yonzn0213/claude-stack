@@ -50,6 +50,24 @@ TDS 컴포넌트(React)는 쓰지 않아도 된다. 바닐라 웹이면 아래 �
 5. 저장은 SDK `Storage`(앱을 꺼도 유지)를 쓰되, 토스 밖에서는 응답이 안 올 수 있으니 시간 제한을 두고 localStorage로 대신한다.
 6. appName은 바꿀 수 없는 고유 ID다. 콘솔에서 이미 쓰이고 있으면 다른 이름을 넣어야 한다.
 
+## 업로드
+
+- 공식 경로: 콘솔에 `.ait`를 직접 올리거나, 공식 CLI `ait deploy`(콘솔에서 발급한 API 키 사용, `ait token add`로 프로필에 저장)를 쓴다. API 키는 코드·git에 넣지 않는다.
+
+## 커뮤니티 오픈소스 (github.com/apps-in-toss-community, 2026-11-10 확인)
+
+토스 공식이 아닌 개인·커뮤니티 프로젝트다. README에 **유지보수 종료·archive 예정**, 운영하던 `aitc.dev` 도메인 종료가 적혀 있다.
+
+| 저장소 | 내용 | 쓸지 |
+|---|---|---|
+| docs | 커뮤니티 SDK 문서 소스 | 공식 문서에 없는 사용 예가 필요할 때 참고만 |
+| sdk-example | SDK API를 눌러 보는 예제 앱 | API 호출 예를 볼 때 참고만 |
+| devtools (`@ait-co/devtools`) | mock SDK + 패널 | 쓰지 않는다. 공식 `@apps-in-toss/devtools`를 쓴다 |
+| console-cli (`aitcc`) | 콘솔 이메일·비밀번호를 저장해 headless 브라우저로 콘솔 조작 | 쓰지 않는다. 비공식 자동화에 자격증명을 맡기는 위험 + 업데이트 종료. 공식 `ait deploy`를 쓴다 |
+| agent-plugin (`/ait:*`) | Claude Code 플러그인(스캐폴딩·배포) | 쓰지 않는다. 업데이트 종료, 일부 기능이 종료된 도메인에 의존 |
+| oidc-bridge | 토스 로그인 → OIDC·Firebase 토큰 | 토스 로그인을 붙일 때만 직접 호스팅을 검토. 공용 인스턴스는 종료 |
+| polyfill, debugger | 웹 표준 API polyfill, 실기기 디버깅 (WIP) | 쓰지 않는다 |
+
 ## 출처
 
 - 처음 연 사람도 헤매지 않는 화면의 3가지 조건: https://toss.im/apps-in-toss/blog/mini-app-ux-screen-design-guide
