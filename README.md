@@ -15,6 +15,7 @@ Claude Code 기반 개발 환경에서 운용 중인 플러그인 · 스킬 · C
 | [design-taste-frontend](tools/design-taste-frontend.md) | Skill | Adopt | — | 신규 UI 제작 시 디자인 품질 기준 |
 | [ui-ux-pro-max](tools/ui-ux-pro-max.md) | Skill | Adopt | — | 프로젝트 초기 디자인 시스템 선정 |
 | [sf-where-used](tools/sf-where-used.md) | Skill (자체 제작) | Adopt | — | Salesforce 메타데이터 역참조 분석 |
+| [writing-korean-product-ux](tools/writing-korean-product-ux.md) | Skill (자체 제작) | Trial | — | 한국어 앱·웹 문구, 국내 다크패턴·동의·접근성 기준, 토스 미니앱 |
 | [mattpocock/skills](tools/mattpocock-skills.md) | Skill set | Trial | — | 선택형 엔지니어링 스킬 모음 (git-guardrails 개작판 사용) |
 | [Herdr](tools/herdr.md) | CLI | Trial | 0.9.5 | 다중 에이전트 세션 관리 |
 
